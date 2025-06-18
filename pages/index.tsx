@@ -20,7 +20,7 @@ export default function Home() {
 
     setMessages(updatedMessages);
     setLoading(true);
-
+try{
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: {
@@ -32,12 +32,18 @@ export default function Home() {
     });
 
     if (!response.ok) {
+      
       setLoading(false);
       throw new Error(response.statusText);
     }
 
     const data = response.body;
-
+}catch(err){
+  setLoading(false);
+  console.log("Error : ", err)
+}finally{
+  setLoading(false);
+}
     if (!data) {
       return;
     }
